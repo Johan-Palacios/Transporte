@@ -230,14 +230,12 @@ public class TransporteUI extends javax.swing.JFrame {
 
     int costoTotalMetodoVogel = metodoVogel.calcularCostoTotal(costoMetodoVogel, metodoVogel.getSolucion());
 
-    System.out.println(resultMetodoVogel);
-    System.out.println(costoTotalMetodoVogel);
-
-
-
+    String resultTotal = "Costo NorOeste: " + costoTotalNorOeste + "\n" + "Costo Minimo: " + costoTotalCostoMinimo + "\n" + "Metodo Vogel: " + costoTotalMetodoVogel;
+    String iter = resultados.result + "\n" + resultNorOeste + "\n" + resultCostoMinimo + "\n" + resultMetodoVogel + "\n";
 
     FloatingWindowItertions nWindowItertions = new FloatingWindowItertions();
-    nWindowItertions.setTextArea("Costo NorOeste" + costoTotalNorOeste);
+    nWindowItertions.setTextArea(resultTotal);
+    nWindowItertions.setIteraciones(iter);
     nWindowItertions.setVisible(true);
   } // GEN-LAST:event_btnCalcularActionPerformed
 

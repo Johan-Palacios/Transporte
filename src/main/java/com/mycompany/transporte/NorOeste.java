@@ -6,6 +6,7 @@ public class NorOeste {
 
   public String resolverEsquinaNorOeste(int[][] costos, int[] oferta, int[] demanda) {
     StringBuilder result = new StringBuilder();
+    result.append("--------------------------Esquina Nor Oeste ---------------------------\n");
     int filas = oferta.length;
     int columnas = demanda.length;
     solucion = new int[filas][columnas];

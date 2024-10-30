@@ -9,6 +9,15 @@ package com.mycompany.transporte;
  * @author johan
  */
 public class FloatingWindowItertions extends javax.swing.JFrame {
+    public String iteraciones = "";
+
+    public String getIteraciones() {
+      return iteraciones;
+    }
+
+    public void setIteraciones(String iteraciones) {
+      this.iteraciones = iteraciones;
+    }
 
     /**
      * Creates new form FloatingWindowItertions
@@ -70,7 +79,11 @@ public class FloatingWindowItertions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIteracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIteracionesActionPerformed
-        // TODO add your handling code here:
+
+      IteracionTotal iTotal = new IteracionTotal();
+      iTotal.setTextArea(getIteraciones());
+      iTotal.setVisible(true);
+      
     }//GEN-LAST:event_btnIteracionesActionPerformed
     
     public void setTextArea(String s) {

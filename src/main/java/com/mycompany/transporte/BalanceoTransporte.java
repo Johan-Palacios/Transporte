@@ -73,18 +73,18 @@ public class BalanceoTransporte {
 
   public static String mostrarMatriz(int[][] costos, int[] oferta, int[] demanda) {
     String resutl = "";
-    resutl += "Matriz de costos balanceada:";
+    resutl += "Matriz de costos balanceada:\n";
 
     // Imprimir la matriz de costos con la oferta al final de cada fila
     for (int i = 0; i < costos.length; i++) {
       for (int j = 0; j < costos[i].length; j++) {
         resutl += String.format("%-8d", costos[i][j]);
       }
-      resutl += "| " + oferta[i];
+      resutl += "| " + oferta[i] + "\n";
     }
 
     // Imprimir línea de separación
-    resutl += "-".repeat(demanda.length * 8);
+    resutl += "-".repeat(demanda.length * 8) + "\n";
 
     // Imprimir la demanda en una fila separada
     for (int d : demanda) {

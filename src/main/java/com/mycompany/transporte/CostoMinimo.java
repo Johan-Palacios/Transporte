@@ -8,6 +8,7 @@ public class CostoMinimo {
 
   public String resolverCostoMinimo(int[][] costos, int[] oferta, int[] demanda) {
     StringBuilder result = new StringBuilder();
+    result.append("------------------------Costo Minimo--------------------------------\n");
     int filas = oferta.length;
     int columnas = demanda.length;
     solucion = new int[filas][columnas];
