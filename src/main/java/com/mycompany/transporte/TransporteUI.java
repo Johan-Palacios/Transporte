@@ -164,15 +164,11 @@ public class TransporteUI extends javax.swing.JFrame {
   private void btnCalcularActionPerformed(
       java.awt.event.ActionEvent evt) { // GEN-FIRST:event_btnCalcularActionPerformed
 
-    // int[][] costos = matrizInputGenerator.obtenerValores();
-    //
-    // int[] oferta = matrizInputGenerator.obtenerOferta();
-    //
-    // int[] demanda = matrizInputGenerator.obtenerDemanda();
-    int[][] costos = {{42, 32, 33, 39, 36}, {34, 36, 37, 32, 37}, {38, 31, 40, 35, 35}};
-    int[] oferta = {20, 25, 30};
-    int[] demanda = {10, 12, 14, 16, 18};
+    int[][] costos = matrizInputGenerator.obtenerValores();
 
+    int[] oferta = matrizInputGenerator.obtenerOferta();
+
+    int[] demanda = matrizInputGenerator.obtenerDemanda();
     ResultadosBalance resultados = BalanceoTransporte.balancearMatriz(costos, oferta, demanda);
 
     // Copiar los resultados para pasarlos al método de noroeste

@@ -17,16 +17,15 @@ public class MetodoVogel {
 
     while (Arrays.stream(ofertaActual).sum() > 0 && Arrays.stream(demandaActual).sum() > 0) {
       int[] penalizacionesFilas = calcularPenalizaciones(costos, true, ofertaActual, demandaActual);
-      int[] penalizacionesColumnas =
-          calcularPenalizaciones(costos, false, ofertaActual, demandaActual);
+      int[] penalizacionesColumnas = calcularPenalizaciones(costos, false, ofertaActual, demandaActual);
 
-      // Encontrar la mayor penalización, priorizando la más abajo y a la izquierda en caso de
-      // empate
+      // Mostrar costos, penalizaciones, oferta y demanda actual
+      mostrarTabla(result, costos, ofertaActual, demandaActual, penalizacionesFilas, penalizacionesColumnas);
+
       int maxPenalizacion = -1;
       boolean esFila = true;
       int index = -1;
 
-      // Verifica penalizaciones de filas
       for (int i = 0; i < filas; i++) {
         if (ofertaActual[i] > 0) {
           if (penalizacionesFilas[i] > maxPenalizacion) {
@@ -34,12 +33,11 @@ public class MetodoVogel {
             esFila = true;
             index = i;
           } else if (penalizacionesFilas[i] == maxPenalizacion) {
-            index = i; // Prioriza filas más abajo en caso de empate
+            index = i;
           }
         }
       }
 
-      // Verifica penalizaciones de columnas
       for (int j = 0; j < columnas; j++) {
         if (demandaActual[j] > 0) {
           if (penalizacionesColumnas[j] > maxPenalizacion) {
@@ -47,12 +45,11 @@ public class MetodoVogel {
             esFila = false;
             index = j;
           } else if (penalizacionesColumnas[j] == maxPenalizacion && !esFila) {
-            index = j; // Prioriza columnas más a la izquierda en caso de empate
+            index = j;
           }
         }
       }
 
-      // Asignar oferta/demanda a la celda de menor costo en la fila o columna seleccionada
       if (esFila) {
         int jMin = encontrarIndiceMinimoCosto(costos[index], demandaActual);
         asignar(ofertaActual, demandaActual, index, jMin, costos[index][jMin], result);
@@ -87,8 +84,7 @@ public class MetodoVogel {
     result.append(mostrarMatriz(solucion));
   }
 
-  private int[] calcularPenalizaciones(
-      int[][] costos, boolean esFila, int[] oferta, int[] demanda) {
+  private int[] calcularPenalizaciones(int[][] costos, boolean esFila, int[] oferta, int[] demanda) {
     int longitud = esFila ? oferta.length : demanda.length;
     int[] penalizaciones = new int[longitud];
 
@@ -100,7 +96,6 @@ public class MetodoVogel {
         penalizaciones[k] = calcularPenalizacion(valores, esFila ? demanda : oferta);
       }
     }
-
     return penalizaciones;
   }
 
@@ -167,4 +162,23 @@ public class MetodoVogel {
     value.append("\n");
     return value.toString();
   }
+
+  private void mostrarTabla(StringBuilder result, int[][] costos, int[] oferta, int[] demanda, int[] penalFilas, int[] penalCols) {
+    result.append("\n---------------- Tabla de Iteración ----------------\n");
+
+    result.append("Costos:\n");
+    for (int i = 0; i < costos.length; i++) {
+      for (int j = 0; j < costos[0].length; j++) {
+        result.append(String.format("%4d", costos[i][j]));
+      }
+      result.append(" | ").append(oferta[i]).append(" | Penalización fila: ").append(penalFilas[i]).append("\n");
+    }
+
+    result.append("Demanda: ");
+    for (int d : demanda) result.append(String.format("%4d", d));
+    result.append("\nPenalizaciones Columna:");
+    for (int p : penalCols) result.append(String.format("%4d", p));
+    result.append("\n\n");
+  }
 }
+

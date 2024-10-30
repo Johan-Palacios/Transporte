@@ -1,4 +1,5 @@
 package com.mycompany.transporte;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -16,13 +17,9 @@ public class CostoMinimo {
     PriorityQueue<Celda> celdasPorCosto =
         new PriorityQueue<>(
             Comparator.comparingInt((Celda celda) -> costos[celda.i][celda.j]) // Comparar por costo
-                .thenComparing(
-                    (Celda celda) -> -celda.i) // Si hay empate, priorizar la fila mayor (más abajo)
-                .thenComparing(
-                    (Celda celda) ->
-                        celda
-                            .j)); // Si sigue el empate, priorizar columna menor (más a la
-                                  // izquierda)
+                .thenComparing((Celda celda) -> -celda.i) // Priorizar fila mayor si hay empate
+                .thenComparing((Celda celda) -> celda.j) // Priorizar columna menor si sigue empate
+            );
 
     // Agregar todas las celdas a la cola con sus coordenadas
     for (int i = 0; i < filas; i++) {
@@ -53,7 +50,7 @@ public class CostoMinimo {
             .append(") con costo unitario ")
             .append(costos[i][j])
             .append("\n");
-        result.append(mostrarMatriz(solucion));
+        result.append(mostrarMatrizConCostos(costos, solucion, oferta, demanda)).append("\n");
       }
     }
 
@@ -63,7 +60,6 @@ public class CostoMinimo {
     return result.toString();
   }
 
-  // Método para calcular el costo total usando la matriz de solución
   public int calcularCostoTotal(int[][] costos, int[][] solucion) {
     int costoTotal = 0;
     int filas = solucion.length;
@@ -78,24 +74,49 @@ public class CostoMinimo {
     return costoTotal;
   }
 
-  // Método para obtener la matriz de solución
   public int[][] getSolucion() {
     return solucion;
   }
 
-  private String mostrarMatriz(int[][] matriz) {
-    StringBuilder value = new StringBuilder();
-    for (int[] fila : matriz) {
-      for (int valor : fila) {
-        value.append(String.format("%4d", valor));
-      }
-      value.append("\n");
+  private String mostrarMatrizConCostos(
+      int[][] costos, int[][] solucion, int[] oferta, int[] demanda) {
+    StringBuilder result = new StringBuilder();
+
+    // Encabezado de columnas para demanda
+    result.append("         ");
+    for (int j = 0; j < demanda.length; j++) {
+      result.append(String.format("  D%-2d    ", j));
     }
-    value.append("\n");
-    return value.toString();
+    result.append("  Oferta\n");
+
+    // Imprimir la matriz de costos y asignaciones con la oferta al final de cada fila
+    for (int i = 0; i < costos.length; i++) {
+      result.append(String.format("F%-3d  ", i)); // Etiqueta de fila
+      for (int j = 0; j < costos[i].length; j++) {
+        if (solucion[i][j] > 0) {
+          result.append(
+              String.format(" [%2d/%-3d] ", solucion[i][j], costos[i][j])); // Asignación/costo
+        } else {
+          result.append(String.format("  -/%-3d   ", costos[i][j])); // Solo costo
+        }
+      }
+      result.append(String.format(" | %-5d\n", oferta[i]));
+    }
+
+    // Separador
+    result.append("---------");
+    result.append("-".repeat(demanda.length * 9)).append("\n");
+
+    // Fila de demanda
+    result.append("Demanda ");
+    for (int d : demanda) {
+      result.append(String.format("%-9d", d));
+    }
+    result.append("\n");
+
+    return result.toString();
   }
 
-  // Clase interna para representar una celda con su posición
   private static class Celda {
     int i, j;
 
