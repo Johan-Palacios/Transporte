@@ -39,8 +39,6 @@ public class FloatingWindowItertions extends javax.swing.JFrame {
         txtRespuestas = new javax.swing.JTextArea();
         btnIteraciones = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         txtRespuestas.setColumns(20);
         txtRespuestas.setRows(5);
         jScrollPane1.setViewportView(txtRespuestas);

@@ -29,10 +29,9 @@ public class IteracionTotal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtIteraciones = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 900));
         setSize(new java.awt.Dimension(600, 600));
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jScrollPane1.setMinimumSize(new java.awt.Dimension(600, 600));
 
